@@ -3,6 +3,10 @@ package e.user.supa_cap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,11 +27,18 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FragmentManager manager = getSupportFragmentManager();
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        TabFragmentPagerAdapter adapter = new TabFragmentPagerAdapter(manager);
+        viewPager.setAdapter(adapter);
+        TabLayout tabLayout =(TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);      //tab遷移
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "まだ実装してねーよハゲまてないのか？", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -41,6 +52,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -74,6 +87,8 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -98,4 +113,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
