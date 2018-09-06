@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">supa_cap</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">ゲスト</string>
+    <string name="nav_header_subtitle">アドレス横三回</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">設定</string>
+</resources>
