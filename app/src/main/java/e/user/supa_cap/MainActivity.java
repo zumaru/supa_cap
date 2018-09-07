@@ -1,5 +1,6 @@
 package e.user.supa_cap;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,8 +19,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.sys1yagi.mastodon4j.MastodonClient;
+import com.sys1yagi.mastodon4j.api.Scope;
+import com.sys1yagi.mastodon4j.api.entity.auth.AppRegistration;
+import com.sys1yagi.mastodon4j.api.exception.Mastodon4jRequestException;
+import com.sys1yagi.mastodon4j.api.method.Apps;
 import com.sys1yagi.mastodon4j.api.method.Timelines;
 import okhttp3.OkHttpClient;
+
 
 
 public class MainActivity extends AppCompatActivity
@@ -103,7 +109,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            Intent intent =new Intent();
+            intent.setAction("android.media.action.IMAGE_CAPTURE");
+            startActivity(intent);
+            finish();
         }
         else if (id == R.id.nav_gallery) {
 
@@ -111,9 +120,11 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_slideshow) {
 
         }
-        else if (id == R.id.nav_manage) {
-
+        else if (id == R.id.nav_Oauth) {
+            Intent intent=new Intent(getApplication(), OauthActivity.class);
+            startActivity(intent);
         }
+
         else if (id == R.id.nav_share) {
 
         }
