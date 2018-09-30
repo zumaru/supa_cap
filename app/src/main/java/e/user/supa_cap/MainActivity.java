@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_Oauth) {
-            Intent intent=new Intent(getApplication(), OauthActivity.class);
+            Intent intent = new Intent(getApplication(), OauthActivity.class);
             startActivity(intent);
         }
 
