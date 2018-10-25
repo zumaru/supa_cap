@@ -1,6 +1,7 @@
 package e.user.supa_cap;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,6 +26,7 @@ import com.sys1yagi.mastodon4j.api.exception.Mastodon4jRequestException;
 import com.sys1yagi.mastodon4j.api.method.Apps;
 import com.sys1yagi.mastodon4j.api.method.Timelines;
 import okhttp3.OkHttpClient;
+import android.database.sqlite.SQLiteDatabase;
 
 
 
@@ -64,6 +66,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        databaseTask task = new databaseTask(this);
+        SQLiteDatabase db = task.getWritableDatabase();
     }
 
 

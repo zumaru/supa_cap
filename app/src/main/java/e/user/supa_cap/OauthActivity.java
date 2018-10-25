@@ -80,12 +80,11 @@ public class OauthActivity extends AppCompatActivity {
                     String inst = InstanceName.getText().toString();//ここまで問題なし
 
                     //アプリ登録
-                    api appregi = new api();
-                    appregi.finst = inst;
-                   // appregi.doInBackground();
-                    final AlertDialog.Builder result = new AlertDialog.Builder(OauthActivity.this);
-                    result.setMessage(appregi.finst);
-                    result.show();
+                    appReg appregi = new appReg();
+                    //一つのタスクに一つのインスタンスが必要
+                    appregi.execute(inst);
+
+
                 }
             });
             //キャンセル側ボタンの設定
@@ -100,5 +99,50 @@ public class OauthActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+private class  appReg extends AsyncTask<String, Void, String> {
+
+    @Override
+    protected void onPreExecute() {
+        //バックグラウンド処理開始前にUIスレッド
+        final AlertDialog.Builder Start1 = new AlertDialog.Builder(OauthActivity.this);
+        Start1.setMessage("認証しますー");
+        Start1.show();
+    }
+
+    @Override
+    protected String doInBackground(String... instanse) {
+
+        MastodonClient client = new MastodonClient.Builder(instanse[0], new OkHttpClient.Builder(), new Gson()).build();
+        Apps apps = new Apps(client);
+
+        try {
+            AppRegistration registration = apps.createApp("supa_cap", "urn:ietf:wg:oauth:2.0:oob",
+                    new Scope(Scope.Name.ALL), "https://github.com/zumaru/supa_cap").execute();
+            String insta = registration.getInstanceName();
+            String cliid = registration.getClientId();
+            String clisec = registration.getClientSecret();
+
+        } catch (Mastodon4jRequestException e) {
+
+            int statausCode = e.getResponse().code();
+            System.out.println(statausCode);
+
+        }
+
+
+        return instanse[0];
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        final AlertDialog.Builder end1 = new AlertDialog.Builder(OauthActivity.this);
+        end1.setMessage("終了" + result);
+        end1.show();
+
+    }
+}
 
 }
