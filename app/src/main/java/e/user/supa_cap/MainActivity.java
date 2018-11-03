@@ -20,10 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.sys1yagi.mastodon4j.MastodonClient;
-import com.sys1yagi.mastodon4j.api.Scope;
-import com.sys1yagi.mastodon4j.api.entity.auth.AppRegistration;
-import com.sys1yagi.mastodon4j.api.exception.Mastodon4jRequestException;
-import com.sys1yagi.mastodon4j.api.method.Apps;
 import com.sys1yagi.mastodon4j.api.method.Timelines;
 import okhttp3.OkHttpClient;
 import android.database.sqlite.SQLiteDatabase;
@@ -67,8 +63,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        databaseTask task = new databaseTask(this);
-        SQLiteDatabase db = task.getWritableDatabase();
+
     }
 
 

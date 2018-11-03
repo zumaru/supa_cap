@@ -23,10 +23,10 @@ public class databaseTask extends SQLiteOpenHelper {
         sql += ",Instance text not null";
         sql += ",Client_ID text not null";
         sql += ",Client_Secret text not null";
-       /* sql += ",accessToken text not null";
+        sql += ",accessToken text not null";
         sql += ",Name text not null";
         sql += ",UID text not null";
-        sql += ",alive text not null";*/
+        sql += ",alive text not null";
         sql += ")";
         db.execSQL(sql);
     }
