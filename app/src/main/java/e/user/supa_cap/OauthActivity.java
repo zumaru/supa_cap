@@ -94,8 +94,6 @@ public class OauthActivity extends AppCompatActivity {
                     //一つのタスクに一つのインスタンスが必要
                     appregi.execute(inst);
 
-                    getAcct geta = new getAcct();
-                    geta.execute(OauthActivity.authCode);
 
                     }
             });
@@ -128,10 +126,19 @@ private class  getAcct extends AsyncTask<String, String, String> {
         MastodonClient client = new MastodonClient.Builder(OauthActivity.insta, new OkHttpClient.Builder(), new Gson()).build();
         Apps apps = new Apps(client);
 
-        String rurl = "urn:ietf:wg:oauth:2.0:oob";
+        try {
 
-        MastodonRequest t = apps.getAccessToken(OauthActivity.cliid, OauthActivity.clisec, rurl, authcode[0]);
-        System.out.println(t);
+            AccessToken t = apps.getAccessToken(OauthActivity.cliid, OauthActivity.clisec, authcode[0]).execute();
+            System.out.println(t.getAccessToken());
+            OauthActivity.acct = t.getAccessToken();
+
+
+        } catch (Mastodon4jRequestException e){
+
+            int statausCode = e.getResponse().code();
+            System.out.println(statausCode);
+
+        }
 
 
         return authcode[0];
@@ -188,6 +195,8 @@ private class  appReg extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String result) {
+
+        //authコード入力ダイアログ
         final EditText authCodeE = new EditText(getApplicationContext());
         final AlertDialog.Builder end1 = new AlertDialog.Builder(OauthActivity.this);
         end1.setMessage("ここにアクセス先のコードをペースト").setView(authCodeE);
@@ -196,6 +205,10 @@ private class  appReg extends AsyncTask<String, String, String> {
             @Override
             public void onClick(DialogInterface dialog, int whichButton){
                 OauthActivity.authCode = authCodeE.getText().toString();
+
+                //getAcctを呼び出してアクセストークン取得
+                getAcct geta = new getAcct();
+                geta.execute(OauthActivity.authCode);
             }
         });
         end1.setNegativeButton("やめとく", new DialogInterface.OnClickListener() {
